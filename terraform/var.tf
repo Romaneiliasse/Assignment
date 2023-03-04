@@ -49,7 +49,7 @@ variable "KEY_PAIR" {
 variable "SVR_ami" {
     type = map
     default = {
-        "eu-west-2"      = "ami-03b606be59f48016a"
+        "eu-west-2"      = "ami-09a2a0f7d2db8baca"
     }
 }
 
