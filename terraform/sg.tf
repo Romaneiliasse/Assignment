@@ -20,9 +20,9 @@ resource "aws_security_group" "SG_LB_SRV" {
 
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port = 443
+    from_port = 80
     protocol  = "tcp"
-    to_port   = 443
+    to_port   = 80
   }
 
   egress {
