@@ -32,6 +32,13 @@ resource "aws_security_group" "SG_LB_SRV" {
     to_port   = 443
   }
 
+  egress {
+    security_groups = [aws_security_group.SG_WEB_SRV.name]
+    from_port = 8080
+    protocol  = "tcp"
+    to_port   = 8080
+  }
+
   name   = "Inbound_LB_SG"
 }
 
@@ -48,6 +55,13 @@ resource "aws_security_group" "SG_WEB_SRV" {
     to_port   = 22
   }
 
+  ingress {
+    security_groups = [aws_security_group.SG_LB_SRV.name]
+    from_port = 8080
+    protocol  = "tcp"
+    to_port   = 8080
+  }
+
   egress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port = 80
@@ -60,6 +74,13 @@ resource "aws_security_group" "SG_WEB_SRV" {
     from_port = 443
     protocol  = "tcp"
     to_port   = 443
+  }
+
+  egress {
+    security_groups = [aws_security_group.SG_DB_SRV.name]
+    from_port = 27017
+    protocol  = "tcp"
+    to_port   = 27017
   }
 
   name   = "Inbound_WEB_SG"
@@ -76,6 +97,13 @@ resource "aws_security_group" "SG_DB_SRV" {
     from_port = 22
     protocol  = "tcp"
     to_port   = 22
+  }
+
+  ingress {
+    security_groups = [aws_security_group.SG_WEB_SRV.name]
+    from_port = 27017
+    protocol  = "tcp"
+    to_port   = 27017
   }
 
   egress {
