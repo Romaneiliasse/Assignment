@@ -1,0 +1,6 @@
+# ignore stuff.
+*.png
+*.md
+*.pem
+./Icon
+./readme.md
