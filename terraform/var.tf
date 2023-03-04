@@ -19,6 +19,16 @@ variable "AWS_SECRET_KEY" {
   default = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
 
+#
+############### ------ Workstation PUBLIC IP (From where we deploy and test) ------ ###############
+#
+#
+
+variable "workstation_IP" {
+  default = "XXXX/32"
+
+}
+
 ##### ------ AWS REGION ------ #####
 
 variable "aws_region" {
@@ -47,11 +57,6 @@ variable "SVR_ami" {
 
 variable "SRV_SIZE" {
   default = "t2.micro"
-}
-
-variable "workstation_IP" {
-  default = "XXXX/32"
-
 }
 
 #
