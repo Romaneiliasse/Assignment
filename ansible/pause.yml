@@ -3,7 +3,7 @@
 
   tasks:
   - name: Sleep shell command
-    shell: 'sleep 240'
+    shell: 'sleep 120'
     ignore_errors: 'true'
     register: sleep
   - debug: var=sleep.stdout_lines
