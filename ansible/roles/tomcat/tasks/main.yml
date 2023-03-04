@@ -1,32 +1,36 @@
 ---
   - name: Allow 8080 in iptables
+    become: yes
     iptables:
       chain: INPUT
       protocol: tcp
       match: tcp
       destination_port: "8080"
       jump: ACCEPT
-    become: yes
 
   - name: Install package
+    become: yes
     apt:
       name: tomcat7
       update_cache: yes
       state: present
 
   - name: Create App directory
+    become: yes
     file:
       path: /var/lib/tomcat7/webapps/{{ app_name }}
       state: directory
       mode: 0755
 
   - name: Copy index.jsp
+    become: yes
     template:
       src: index.jsp.j2
       dest: /var/lib/tomcat7/webapps/{{ app_name }}/index.jsp
     notify: restart tomcat
 
   - name: Copy additional files
+    become: yes
     copy:
       src: "{{ item.src }}"
       dest: "{{ item.dest }}"
@@ -34,4 +38,3 @@
       - { src: "WEB-INF", dest: "/var/lib/tomcat7/webapps/{{ app_name }}" }
       - { src: "setenv.sh", dest: "/usr/share/tomcat7/bin/setenv.sh" }
     notify: restart tomcat
-

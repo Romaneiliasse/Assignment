@@ -1,7 +1,6 @@
 ---
-- block:
-
   - name: Allow 27017 in iptables
+    become: yes
     iptables:
       chain: INPUT
       protocol: tcp
@@ -10,16 +9,16 @@
       jump: ACCEPT
 
   - name: Install package
+    become: yes
     apt:
       name: mongodb
       update_cache: yes
       state: present
 
   - name: Edit mongodb.conf
+    become: yes
     replace:
       path: /etc/mongodb.conf
       regexp: '^bind_ip = 127.0.0.1'
       replace: '#bind_ip = 127.0.0.1'
     notify: restart mongodb
-
- become: yes

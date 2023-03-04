@@ -1,32 +1,36 @@
 ---
   - name: Allow 80 in iptables
+    become: yes
     iptables:
       chain: INPUT
       protocol: tcp
       match: tcp
       destination_port: "80"
       jump: ACCEPT
-    become: yes
 
   - name: Install package
+    become: yes
     apt:
       name: nginx
       update_cache: yes
       state: present
 
   - name: Copy nginx configuration files
+    become: yes
     copy:
       src: nginx/
       dest: /etc/nginx
     notify: reload nginx
 
   - name: Copy load balancer site
+    become: yes
     template:
       src: lb.j2
       dest: /etc/nginx/sites-available/lb
     notify: reload nginx
 
   - name: Create symlink to lb
+    become: yes
     file:
       src: /etc/nginx/sites-available/lb
       dest: /etc/nginx/sites-enabled/lb
@@ -34,6 +38,7 @@
     notify: reload nginx
 
   - name: Delete default site
+    become: yes
     file:
       path: /etc/nginx/sites-enabled/default
       state: absent
